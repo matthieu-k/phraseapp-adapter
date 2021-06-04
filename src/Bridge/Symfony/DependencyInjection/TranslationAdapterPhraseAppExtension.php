@@ -28,7 +28,7 @@ class TranslationAdapterPhraseAppExtension extends Extension
             ->addArgument(empty($config['httplug_message_factory']) ? null : new Reference($config['httplug_message_factory']));
 
         $clientConfigurator = (new Definition(HttpClientConfigurator::class))
-            ->addArgument($config['token'])
+            ->addArgument($config['token'] ?? null)
             ->addArgument(empty($config['httplug_client']) ? null : new Reference($config['httplug_client']))
             ->addArgument(empty($config['httplug_uri_factory']) ? null : new Reference($config['httplug_uri_factory']));
 
@@ -45,12 +45,12 @@ class TranslationAdapterPhraseAppExtension extends Extension
             ->setClass(PhraseApp::class)
             ->setPublic(true)
             ->addArgument($apiDef)
-            ->addArgument($config['project_id'])
-            ->addArgument($config['locale_to_id_mapping'])
-            ->addArgument($config['domains']);
+            ->addArgument($config['project_id'] ?? null)
+            ->addArgument($config['locale_to_id_mapping'] ?? null)
+            ->addArgument($config['domains'] ?? []);
 
         if (isset($config['default_locale'])) {
-            $adapterDef->addArgument($config['default_locale']);
+            $adapterDef->addArgument($config['default_locale'] ?? null);
         }
     }
 }
